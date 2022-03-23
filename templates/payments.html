@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+</head>
+
+<body class="bg-gradient-primary">
+
+    <h2>Process Payment</h2>
+
+    <form method = "POST" actions="" class="user">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <input type="submit" name="Process Payment">
+
+
+</body>
+
+</html>

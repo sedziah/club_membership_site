@@ -38,7 +38,7 @@ class CustomerDetails(models.Model):
     national_id             = models.IntegerField(null=True)
     username                = models.CharField(max_length=20, null=True, blank=True)
     password                = models.CharField(max_length=20, null=True, blank=True)
-    registration_status     = models.CharField(max_length=50, choices=REGISTRATION_STATUS, default='pending')
+    registration_status     = models.CharField(max_length=50, choices=REGISTRATION_STATUS, default='Pending')
     date_created            = models.DateTimeField(auto_now_add=True, null=True)
 
 
@@ -53,6 +53,9 @@ class CustomerDetails(models.Model):
 class Facilities(models.Model):    
     facility_id = models.AutoField(primary_key=True)
     facility_name = models.CharField(max_length=80)
+
+    class Meta:
+        verbose_name_plural  = 'Facilities'
 
     def __str__(self):
         return str(self.facility_name)
@@ -98,6 +101,10 @@ class CustomerPayments(models.Model):
 class CustomerFacility(models.Model):    
     customer = models.ForeignKey(CustomerDetails, on_delete=models.CASCADE)
     facility = models.ForeignKey(Facilities, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name_plural  = 'Customer Facility'
+        db_table             = 'Customer Facility'
 
     def __str__(self):
         return str(self.customer_id)

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<style>
+table, th, td {
+    border:0.5px solid black;
+}
+</style>
+
+    <body>
+        <h1 style="text-align:center;">Admin Panel</h1>        
+
+        <h4>Newly Registered Customers</h4>
+        <table>
+            <td>Customer Name</td>
+            <td>Date of Birth</td>
+            <td>Registration Date</td>
+            <td>Registration Status</td>
+            <td>Confirm</td>
+
+            {% for c in new_registrations %}
+            <tr>
+                
+                <td>{{c.first_name}}  {{c.last_name}} </td>
+                <td>{{c.date_of_birth}}</td>
+                <td>{{c.date_created}}</td>
+                <td>{{c.registration_status}}</td>
+                <td><a href="{% url 'reg' c.customer_id %}">Approve</a></td>
+                
+            </tr>
+            {% endfor %}
+
+        </table>
+
+
+        <h4> Existing Customers</h4>
+        <table>
+            <td>Customer Name</td>
+            <td>Date of Birth</td>
+            <td>Registration Date</td>
+            <td>Registration Status</td>
+            <td>Username</td>
+            <td>Password</td>     
+            <td>Process payment</td>
+
+            {% for c in approved_customer %}
+            <tr>
+
+                <td>{{c.first_name}}  {{c.last_name}} </td>
+                <td>{{c.date_of_birth}}</td>
+                <td>{{c.date_created}}</td>
+                <td>{{c.registration_status}}</td>
+                <td>{{c.username}}</td>
+                <td>{{c.password}}</td>
+                <td><a href="{% url 'payments' c.customer_id %}">Pay</a></td>
+                
+            </tr>
+            {% endfor %} 
+
+        </table>
+
+        <h4>Customers Reservations</h4>
+        <table>
+            <td>Customer Name</td>
+            <td>Booked Facility</td>
+            <td>Date & Time</td>
+
+
+            {% for c in facility_reservations %}
+            <tr>
+                <td>{{c.customer_id.first_name}}  {{c.customer_id.last_name}} </td>
+                <td>{{c.facility_full_payment}} {{facility_part_payment}} {{c.facility_new_customer}} </td>
+                <td>{{c.reservation_date}}  {{c.reservation_time}}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </body>
+
+
+</html>
