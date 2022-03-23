@@ -1,21 +1,22 @@
-"""core URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+# Django
 from django.contrib import admin
 from django.urls import path
 
+# Local Django
+from webapp import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('',              views.index,                      name="index"),
+    path('signup',        views.signup_page,                name="signup"),
+    path('login',         views.login_page,                 name="login"),
+    path('logout',        views.logoutUser,                 name="logout"),
+    path('admin_panel',   views.admin_panel,                name="admin_panel"),
+    path('subscription',  views.customer_reservation_page,  name="sub"),
+    
+
+    path('reg_approval/<str:customer_id>/',     views.approve_registration,        name="reg"),
+    path('payments/<str:customer_id>/',         views.customer_payments,           name="payments")
 ]
+
