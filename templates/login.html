@@ -18,6 +18,10 @@
     <hr>
     <div class="text-center">
         <button><a class="small" href="{% url 'signup' %}">Create an Account!</a></button>
+
+        {%for message in messages %}
+        <p id="messages">{{message}}</p>
+        {% endfor %}
     </div>
 
 </body>

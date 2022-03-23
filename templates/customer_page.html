@@ -9,6 +9,10 @@
 <body>
 
     <h2>Facility Reservation</h2>
+    
+    {%for message in messages %}
+      <p id="messages">{{message}}</p>
+    {% endfor %}
 
     <form method = "POST" actions="" class="user">
         {% csrf_token %}

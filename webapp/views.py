@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
 from django.contrib import messages
 
 
@@ -34,7 +33,7 @@ def signup_page(request):
         if form.is_valid():
             form.save()
             user = form.cleaned_data.get('first_name')
-            messages.success(request, f"Hi {user} your account has been created successfully. Contact admin for username and password")
+            messages.success(request, f"Hi {user} your account has been created successfully. Contact admin for your username and password")
 
         return redirect('index')
 
@@ -57,18 +56,20 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            
+            #messages.success(request, f"Welcome {user}")
+                       
             if request.user.is_superuser:
                 return redirect(admin_panel)
             else:
                 return redirect('sub')
+        else:
+            messages.error(request, "Wrong username and password")
 
     context = {'form':form}
     return render(request, 'login.html', context)
 
 def logoutUser(request):
     return redirect('index')
-
 
 @login_required(login_url='login')
 def admin_panel(request):
@@ -100,6 +101,7 @@ def approve_registration(request, customer_id):
     
     form = CustomerApprovalForm
     customers = CustomerDetails.objects.get(customer_id=customer_id)
+
     
     if request.method == 'POST':
         form = CustomerApprovalForm(request.POST, instance=customers)
@@ -116,7 +118,7 @@ def approve_registration(request, customer_id):
 
 
         updated_customer = CustomerDetails.objects.filter(customer_id=customer_id,)
-
+        #CustomerFacility.objects.get_or_create(customer_id=customer_id, )
 
         for i in updated_customer: 
             username  = i.username
@@ -129,12 +131,15 @@ def approve_registration(request, customer_id):
         user_instance = User.objects.get(username=username)
         user_customer = CustomerDetails.objects.filter(customer_id=customer_id)
         user_customer.update(user=user_instance)
+        
 
+        '''This function creates a new facility has been created in the facilities table'''
+        
+        
+
+        update_customer_facility(customer_id=customer_id, facility_name='Gym')
 
         return redirect('admin_panel')
-        
-        #else:
-        #    return HttpResponse('Restricted Access') 
 
     context = {'form':form}
     return render(request, 'register.html', context)
@@ -142,33 +147,17 @@ def approve_registration(request, customer_id):
 @login_required(login_url='login')
 def customer_reservation_page(request):
     
+    
     if request.user.is_superuser:
         return redirect('admin_panel')
     else:
 
+        form = CustomerReservationForm
+
         customer_id = request.user.customerdetails.customer_id
         print(customer_id)
 
-
-        def form_type():
-
-            form = CustomerReservationForm
-            customer_payments = CustomerPayments.objects.filter(customer_id=customer_id)
-            all_payments = customer_payments.aggregate(sum=Sum('amount_paid'))
-            total_paid = all_payments['sum'] 
-
-            subscription_cost = 1000  # This an assumed customer subscription cost
-            
-            if total_paid is not None:
-                total_percentage_payment =  (total_paid / subscription_cost) * 100
-            else:
-                total_percentage_payment = 0
-                
-                #global form 
-            #form = CustomerReservationForm
-            return form
-
-
+        
         if request.method =="POST":
 
             form = CustomerReservationForm(request.POST)
@@ -180,17 +169,17 @@ def customer_reservation_page(request):
 
                 if customer_access:
                     form.save()
+                    messages.success(request, "Booking confirmed!")
+                    
                 else:
-                    #customer not eligible
-                    print("not eligible")
+                    messages.error(request, "Your are not eligible to book this facility")
                 return redirect('sub')
 
 
-    context = {'form':form_type()}
+    context = {'form':form}
 
     return render(request, 'customer_page.html', context)
 
-  
 def customer_payments(request, customer_id):
     
     customers = CustomerDetails.objects.filter(customer_id=customer_id)
@@ -203,7 +192,7 @@ def customer_payments(request, customer_id):
     if request.method == 'POST':
         form = CustomerPaymentsForm(request.POST)
         if form.is_valid():
-            form.save()         
+            form.save()        
 
               
         return redirect('admin_panel')

@@ -99,8 +99,8 @@ class CustomerPayments(models.Model):
 
 
 class CustomerFacility(models.Model):    
-    customer = models.ForeignKey(CustomerDetails, on_delete=models.CASCADE)
-    facility = models.ForeignKey(Facilities, on_delete=models.CASCADE)
+    customer = models.ForeignKey(CustomerDetails, on_delete=models.CASCADE, null=True, blank=True)
+    facility = models.ForeignKey(Facilities, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name_plural  = 'Customer Facility'
