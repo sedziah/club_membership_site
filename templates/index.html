@@ -2,12 +2,20 @@
 <html lang="en">
   <head>
 
-    <title>HomePage </title>
+    <body>
+      <title>HomePage </title>
 
-    <p><h2>Sign Up / Sign In</h2></p> 
+      <p><h2>Sign Up / Sign In</h2></p> 
+      
+      {%for message in messages %}
+      <p id="messages">{{message}}</p>
+      {% endfor %}
+      
+      <button><a href="{% url 'signup' %}">New User</a></button>
+      <button><a href="{% url 'login' %}">Existing User</a></button>
+  
+    </body>
 
-    <button><a href="{% url 'signup' %}">New User</a></button>
-    <button><a href="{% url 'login' %}">Existing User</a></button>
 
   </head>
 

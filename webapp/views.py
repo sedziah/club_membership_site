@@ -5,6 +5,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.contrib import messages
 
 
 # Local Django
@@ -32,6 +33,8 @@ def signup_page(request):
         form = CustomerProfilesForm(request.POST)
         if form.is_valid():
             form.save()
+            user = form.cleaned_data.get('first_name')
+            messages.success(request, f"Hi {user} your account has been created successfully. Contact admin for username and password")
 
         return redirect('index')
 
@@ -138,7 +141,6 @@ def approve_registration(request, customer_id):
 
 @login_required(login_url='login')
 def customer_reservation_page(request):
-
     
     if request.user.is_superuser:
         return redirect('admin_panel')
