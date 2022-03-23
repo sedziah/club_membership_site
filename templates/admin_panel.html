@@ -61,14 +61,14 @@ table, th, td {
         <h4>Customers Reservations</h4>
         <table>
             <td>Customer Name</td>
-            <td>Booked Facility</td>
+            <td>Reserved Facility</td>
             <td>Date & Time</td>
 
 
             {% for c in facility_reservations %}
             <tr>
                 <td>{{c.customer_id.first_name}}  {{c.customer_id.last_name}} </td>
-                <td>{{c.facility_full_payment}} {{facility_part_payment}} {{c.facility_new_customer}} </td>
+                <td>{{c.facility}} </td>
                 <td>{{c.reservation_date}}  {{c.reservation_time}}</td>
             </tr>
             {% endfor %}

@@ -80,8 +80,8 @@ def admin_panel(request):
     if request.user.is_superuser:
     
         approved_customer      = CustomerDetails.objects.filter(registration_status = "Approved")
-        facility_reservations  = CustomerReservations.objects.all()
         new_registrations      = CustomerDetails.objects.filter(registration_status = "Pending")
+        facility_reservations  = CustomerReservations.objects.all()
         
         print(approved_customer)
 
@@ -169,6 +169,8 @@ def customer_reservation_page(request):
 
                 if customer_access:
                     form.save()
+                    #customer_id = CustomerDetails.objects.get(customer_id=customer_id)
+                    CustomerReservations.objects.update(customer_id=customer_id)
                     messages.success(request, "Booking confirmed!")
                     
                 else:
@@ -194,6 +196,15 @@ def customer_payments(request, customer_id):
         if form.is_valid():
             form.save()        
 
+            payment_made = customer_percentage_paid(customer_id=customer_id)
+
+            if payment_made >= 50 and payment_made < 100 :
+                update_customer_facility(customer_id=customer_id, facility_name='Swimming Pool')
+
+            elif payment_made >= 100:
+                update_customer_facility(customer_id=customer_id, facility_name='Tennis Court')
+                update_customer_facility(customer_id=customer_id, facility_name='Conference Room')
+                
               
         return redirect('admin_panel')
 
