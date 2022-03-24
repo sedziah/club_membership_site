@@ -11,7 +11,6 @@ from django.contrib import messages
 from .forms         import *
 from .models        import *
 from .utils         import *
-#from .decorators    import all_users, allowed_users, unauthenticated_user
 
 
 
@@ -56,7 +55,6 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            #messages.success(request, f"Welcome {user}")
                        
             if request.user.is_superuser:
                 return redirect(admin_panel)
@@ -108,7 +106,7 @@ def approve_registration(request, customer_id):
         if form.is_valid():
             form.save()         
 
-        customer = CustomerDetails.objects.filter(customer_id=customer_id,)
+        customer = CustomerDetails.objects.filter(customer_id=customer_id)
 
         for i in customer: 
             last_name = i.last_name 
@@ -118,7 +116,6 @@ def approve_registration(request, customer_id):
 
 
         updated_customer = CustomerDetails.objects.filter(customer_id=customer_id,)
-        #CustomerFacility.objects.get_or_create(customer_id=customer_id, )
 
         for i in updated_customer: 
             username  = i.username
@@ -146,8 +143,7 @@ def approve_registration(request, customer_id):
 
 @login_required(login_url='login')
 def customer_reservation_page(request):
-    
-    
+        
     if request.user.is_superuser:
         return redirect('admin_panel')
     else:
@@ -155,7 +151,6 @@ def customer_reservation_page(request):
         form = CustomerReservationForm
 
         customer_id = request.user.customerdetails.customer_id
-        print(customer_id)
 
         
         if request.method =="POST":
@@ -165,11 +160,10 @@ def customer_reservation_page(request):
 
                 facility = form.cleaned_data['facility'].facility_id
                 customer_id = CustomerDetails.objects.get(customer_id=customer_id)
-                customer_access = CustomerFacility.objects.filter(customer=customer_id).filter(facility=facility)
+                facility_accessible = CustomerFacility.objects.filter(customer=customer_id).filter(facility=facility)
 
-                if customer_access:
+                if facility_accessible:
                     form.save()
-                    #customer_id = CustomerDetails.objects.get(customer_id=customer_id)
                     CustomerReservations.objects.update(customer_id=customer_id)
                     messages.success(request, "Booking confirmed!")
                     

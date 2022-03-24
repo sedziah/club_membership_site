@@ -7,7 +7,7 @@ table, th, td {
 </style>
 
     <body>
-        <h1 style="text-align:center;">Admin Panel</h1>        
+        <h1>Admin Panel</h1>        
 
         <h4>Newly Registered Customers</h4>
         <table>
@@ -74,6 +74,9 @@ table, th, td {
             {% endfor %}
 
         </table>
+
+        <br>
+        <button><a href="{% url 'logout' %}">Logout</a></button>
 
     </body>
 
