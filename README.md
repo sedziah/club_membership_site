@@ -38,5 +38,5 @@ source venv/Scripts/activate
 >'$python manage.py createsuperuser'
 
 **Admin credentials**
-username: admin
-password: admin 
+>username: admin
+>password: admin 
