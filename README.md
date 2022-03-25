@@ -29,12 +29,13 @@ A club membership application that allows customers to register and reserve faci
 source venv/Scripts/activate
 5.	Install all dependencies by executing:  
 >$pip install -r requirements.txt
-6.	Setup the application database by executing the following commands:
+6.	Setup the application database by executing:
 >$python manage.py makemigrations
+7. Followed by:
 >$python manage.py migrate
-9.	Run the application by executing: 
+8.	Run the application by executing: 
 >$python manage.py runserver
-10.	For creating an admin-user execute the code or login admin credentials: 
+9.	For creating an admin-user execute the code or login admin credentials: 
 >$python manage.py createsuperuser
 
 **Admin credentials**
