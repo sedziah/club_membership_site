@@ -12,7 +12,7 @@ def username_generator(last_name):
     return last_name+get_random_string(length=2, allowed_chars='0123456789')
 
 def password_generator():
-    return get_random_string(length=8)
+    return get_random_string(length=8, allowed_chars='AaBbCcDdEeFfggHhIiJj0123456789')
 
 def create_approved_user(username, password):
 
