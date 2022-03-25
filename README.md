@@ -23,19 +23,19 @@ A club membership application that allows customers to register and reserve faci
 1.	Clone or download the zipped repository from the GitHub link
 2.	Extract all contents from the zipped folder
 3.	Open your terminal and cd to project root:
->'$cd project_folder"
+>$cd project_folder
 4.	Create virtual environment and activate it by running
->'$python -m venv venv'
+>$python -m venv venv
 source venv/Scripts/activate
 5.	Install all dependencies by executing:  
->'$pip install -r requirements.txt'
+>$pip install -r requirements.txt
 6.	Setup the application database by executing the following commands:
->'$python manage.py makemigrations'
->'$python manage.py migrate'
+>$python manage.py makemigrations
+>$python manage.py migrate
 9.	Run the application by executing: 
->'$python manage.py runserver'
+>$python manage.py runserver
 10.	For creating an admin-user execute the code or login admin credentials: 
->'$python manage.py createsuperuser'
+>$python manage.py createsuperuser
 
 **Admin credentials**
 >username: admin
