@@ -77,17 +77,19 @@ def admin_panel(request):
 
     if request.user.is_superuser:
     
-        approved_customer      = CustomerDetails.objects.filter(registration_status = "Approved")
-        new_registrations      = CustomerDetails.objects.filter(registration_status = "Pending")
-        facility_reservations  = CustomerReservations.objects.all()
+        allowed_facilities = CustomerFacility.objects.all()
+        approved_customer = CustomerDetails.objects.filter(registration_status = "Approved")
+        new_registrations = CustomerDetails.objects.filter(registration_status = "Pending")
+        facility_reservations = CustomerReservations.objects.all()
         
         print(approved_customer)
 
         context = {   
 
-            'approved_customer'        : approved_customer,
-            'new_registrations'        : new_registrations,
-            'facility_reservations'    : facility_reservations 
+            'approved_customer'     : approved_customer,
+            'new_registrations'     : new_registrations,
+            'facility_reservations' : facility_reservations,
+            'customer_facility'     : allowed_facilities
         }
     else:
         return redirect('sub')
@@ -198,7 +200,7 @@ def customer_payments(request, customer_id):
             elif payment_made >= 100:
                 update_customer_facility(customer_id=customer_id, facility_name='Tennis Court')
                 update_customer_facility(customer_id=customer_id, facility_name='Conference Room')
-                
+                update_customer_facility(customer_id=customer_id, facility_name='Swimming Pool')                
               
         return redirect('admin_panel')
 
