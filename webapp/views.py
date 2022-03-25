@@ -77,19 +77,17 @@ def admin_panel(request):
 
     if request.user.is_superuser:
     
-        allowed_facilities = CustomerFacility.objects.all()
-        approved_customer = CustomerDetails.objects.filter(registration_status = "Approved")
-        new_registrations = CustomerDetails.objects.filter(registration_status = "Pending")
-        facility_reservations = CustomerReservations.objects.all()
+        approved_customer      = CustomerDetails.objects.filter(registration_status = "Approved")
+        new_registrations      = CustomerDetails.objects.filter(registration_status = "Pending")
+        facility_reservations  = CustomerReservations.objects.all()
         
         print(approved_customer)
 
         context = {   
 
-            'approved_customer'     : approved_customer,
-            'new_registrations'     : new_registrations,
-            'facility_reservations' : facility_reservations,
-            'customer_facility'     : allowed_facilities
+            'approved_customer'        : approved_customer,
+            'new_registrations'        : new_registrations,
+            'facility_reservations'    : facility_reservations 
         }
     else:
         return redirect('sub')
