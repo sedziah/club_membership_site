@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import *
 from .views import *
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
@@ -31,12 +32,12 @@ class CustomerProfilesForm(forms.ModelForm):
             ]
         
         widgets = {
-            'first_name'                : forms.TextInput(attrs={'class':'form-control'},),
-            'last_name'                 : forms.TextInput(attrs={'class':'form-control'},),
-            'date_of_birth'             : DateInput(attrs={'class':'form-control',},),
-            'address'                   : forms.TextInput(attrs={'class':'form-control'},),
-            'Hobbies'                   : forms.TextInput(attrs={'class':'form-control'},),
-            'national_id'               : forms.TextInput(attrs={'class':'form-control'},),
+            'first_name' : forms.TextInput(attrs={'class':'form-control'},),
+            'last_name'  : forms.TextInput(attrs={'class':'form-control'},),
+            'date_of_birth' : DateInput(attrs={'class':'form-control',},),
+            'address' : forms.TextInput(attrs={'class':'form-control'},),
+            'Hobbies' : forms.TextInput(attrs={'class':'form-control'},),
+            'national_id' : forms.TextInput(attrs={'class':'form-control'},),
         }
 
 
@@ -48,8 +49,8 @@ class CustomerApprovalForm(forms.ModelForm):
         fields = ['customer_id', 'registration_status']
 
         widgets = {
-            'customer_id'               : forms.TextInput(attrs={'class':'form-control'},),
-            'registration_status'       : forms.Select(attrs={'class':'form-control'},), 
+            'customer_id' : forms.TextInput(attrs={'class':'form-control'},),
+            'registration_status' : forms.Select(attrs={'class':'form-control'},), 
         }
 
 
@@ -70,9 +71,9 @@ class CustomerPaymentsForm(forms.ModelForm):
             ]
 
         widgets = {
-            'customer_id'            : forms.TextInput(attrs={'class':'form-control'},),
-            'amount_paid'            : forms.TextInput(attrs={'class':'form-control',},),
-            'payment_date'           : DateInput(attrs={'class':'form-control',},),
+            'customer_id' : forms.TextInput(attrs={'class':'form-control'},),
+            'amount_paid' : forms.TextInput(attrs={'class':'form-control',},),
+            'payment_date': DateInput(attrs={'class':'form-control',},),
         }
 
 class CustomerReservationForm(forms.ModelForm):
@@ -83,7 +84,7 @@ class CustomerReservationForm(forms.ModelForm):
         fields = ['facility', 'reservation_date', 'reservation_time']
 
         widgets = {
-            'facility'       : forms.Select(attrs={'class':'form-control'},),
-            'reservation_date'            : DateInput(attrs={'class':'form-control',},),
-            'reservation_time'            : TimeInput(),
+            'facility': forms.Select(attrs={'class':'form-control'},),
+            'reservation_date': DateInput(attrs={'class':'form-control',},),
+            'reservation_time': TimeInput(),
         }
