@@ -27,7 +27,7 @@ A club membership application that allows customers to register and reserve faci
    	'$python -m venv venv'
 source venv/Scripts/activate
 5.	Install all dependencies by executing:  
-'$pip install -r requirements.txt'
+'>$pip install -r requirements.txt'
 6.	Setup the application database by executing the following commands:
 '$python manage.py makemigrations'
 '$python manage.py migrate'
