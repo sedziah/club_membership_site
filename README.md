@@ -26,14 +26,16 @@ A club membership application that allows customers to register and reserve faci
 4.	Create virtual environment and activate it by running
    	'$python -m venv venv'
 source venv/Scripts/activate
-5.	Install all dependencies by executing:  $pip install -r requirements.txt
+5.	Install all dependencies by executing:  
+'$pip install -r requirements.txt'
 6.	Setup the application database by executing the following commands:
-7.	$python manage.py makemigrations
-8.	$python manage.py migrate
-9.	Run the application by executing: $python manage.py runserver
-10.	For creating an admin-user execute: $python manage.py createsuperuser or use the login credentials below to access the 
+'$python manage.py makemigrations'
+'$python manage.py migrate'
+9.	Run the application by executing: 
+'$python manage.py runserver'
+10.	For creating an admin-user execute the code or login admin credentials: 
+'$python manage.py createsuperuser'
 
-###system_admin
-Admin credentials
+**Admin credentials**
 username: admin
 password: admin 
